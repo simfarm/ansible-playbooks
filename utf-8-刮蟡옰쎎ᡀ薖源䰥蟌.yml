@@ -34,6 +34,8 @@
         host_id: '{{item}}'
       with_sequence: start=1 end={{num_hosts}} format=%d
 
+- name: 'A role with unicode name'
+  hosts: all
   roles:
     - { role: utf-8-刮蟡옰쎎ᡀ薖源䰥蟌 }
 
