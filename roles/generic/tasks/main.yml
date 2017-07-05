@@ -24,7 +24,7 @@
 
   - name: Download artifacts from artifactory
     get_url:
-      url: https://artifactory.ing.net/artifactory/releases_generic_public_it4it/ansible_tower_performance_test/binary_repo.bin
+      url: http://ipv4.download.thinkbroadband.com/512MB.zip
       dest: /tmp/binary_repo.bin
       validate_certs: false
     tags:
