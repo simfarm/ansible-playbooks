@@ -1,0 +1,72 @@
+---
+# -name: A large file called as repo mimic is already placed to test SCM update of fairly sized repo
+
+  - name: Temp location
+    file: path=/tmp/perf_test state=directory mode=0755
+    tags:
+      - download
+      - large_output
+      - stability
+      - all
+
+  - name: Remote copy
+    copy: remote_src=false src=large_file.txt dest=/tmp/perf_test mode=0644
+    tags:
+      - large_output
+      - stability
+      - all
+
+  - name: Display contents of a large file
+    shell: cat /tmp/perf_test/large_file.txt
+    tags:
+      - large_output
+      - all
+
+  - name: Download artifacts from artifactory
+    get_url:
+      url: https://artifactory.ing.net/artifactory/releases_generic_public_it4it/ansible_tower_performance_test/binary_repo.bin
+      dest: /tmp/binary_repo.bin
+      validate_certs: false
+    tags:
+      - download
+      - all
+
+  - name: Do nothing sequence - 1
+    shell: sleep 20
+    tags:
+      - do_nothing
+      - all
+
+  - name: Do nothing sequence - 2
+    shell: sleep 40
+    tags:
+      - do_nothing
+      - all
+
+  - name: Do nothing sequence - 3
+    shell: sleep 60
+    tags:
+      - do_nothing
+      - all
+
+  - name: Stability - Long Running Jobs - 1
+    shell: sleep 108
+    with_sequence: count=100
+    tags:
+      - stability
+      - all
+
+  - name: Stability - Long Running Jobs wiht Load - 1
+    shell: cat /tmp/perf_test/large_file.txt
+    with_sequence: count=10
+    tags:
+      - stability
+      - all
+ 
+  - name: Cleanup the downloaded file
+    file: path=/tmp/perf_test state=absent
+    tags:
+      - download
+      - stability
+      - large_output
+      - all

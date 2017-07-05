@@ -1,0 +1,64 @@
+---
+#Replicating loops
+- include: loopy1.yml
+- include: loppy2.yml
+
+- name: File manipulations - create 1 of 2 directories
+  file: path=/tmp/staging state=directory mode=0755
+  tags:
+    - nolio_ansible
+    - all
+
+- name: File manipulations - create 2 of 2 directories
+  file: path=/tmp/destination state=directory mode=0755
+  tags:
+    - nolio_ansible
+    - all
+
+- name: Remote copy
+  copy: remote_src=false src=copy_file.txt dest=/tmp/staging mode=0644
+  tags:
+    - nolio_ansible
+    - all
+
+- name: Copy file
+  copy: remote_src=true src=/tmp/staging/copy_file.txt dest=/tmp/destination/copy_file.txt mode=0644
+  tags:
+    - nolio_ansible
+    - all
+
+- name: Copy file again with backup
+  copy: remote_src=true src=/tmp/destination/copy_file.txt dest=/tmp/destination/copy_file.txt backup=yes mode=0644
+  tags:
+    - nolio_ansible
+    - all
+
+- name: Change file attributes
+  file: path=/tmp/destination/copy_file.txt mode=0644 group=wheel
+  tags:
+    - nolio_ansible
+    - all
+
+- name: Check process
+  shell: ps -f
+  register: check_process
+  tags:
+    - nolio_ansible
+    - all
+
+- debug: msg="Checking processes {{check_process.stdout}}"
+
+#Replicating loops and repeatations
+- include: loopy1.yml
+- include: loppy2.yml
+- include: loopy1.yml
+- include: loppy2.yml
+
+- name: Cleanup all stuff from Temp created by this role
+  file: path=/tmp/{{ item.dest }} state=absent
+  with_items:
+    - { dest: 'destination' }
+    - { dest: 'staging' }
+  tags: 
+    - nolio_ansible
+    - all

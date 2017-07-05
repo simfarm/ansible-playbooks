@@ -1,0 +1,19 @@
+#!/usr/bin/env ansible-playbook
+
+#- hosts: targets
+- hosts: all 
+  become: yes
+  gather_facts: yes
+
+  pre_tasks:
+    - shell: echo 'Killing Machine Activated!'
+
+  roles:
+    - generic
+    - nolio_ansible
+
+  tasks:
+    - shell: echo 'Roles executed'
+  
+  post_tasks:
+    - shell: echo 'Killing Machine is done!'

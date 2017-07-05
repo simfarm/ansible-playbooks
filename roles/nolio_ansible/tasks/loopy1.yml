@@ -1,0 +1,6 @@
+---
+- name: test
+  shell: whoami
+  tags:
+    - nolio_ansible
+    - all

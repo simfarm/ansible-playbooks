@@ -1,0 +1,6 @@
+---
+- name: test
+  shell: date
+  tags:
+    - nolio_ansible
+    - all
