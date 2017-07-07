@@ -33,11 +33,11 @@
     - nolio_ansible
     - all
 
-- name: Change file attributes
-  file: path=/tmp/destination/copy_file.txt mode=0644 group=wheel
-  tags:
-    - nolio_ansible
-    - all
+#- name: Change file attributes
+#  file: path=/tmp/destination/copy_file.txt mode=0644 group=wheel
+#  tags:
+#    - nolio_ansible
+#    - all
 
 - name: Check process
   shell: ps -f
@@ -54,11 +54,11 @@
 - include: loopy1.yml
 - include: loppy2.yml
 
-- name: Cleanup all stuff from Temp created by this role
-  file: path=/tmp/{{ item.dest }} state=absent
-  with_items:
-    - { dest: 'destination' }
-    - { dest: 'staging' }
-  tags: 
-    - nolio_ansible
-    - all
+#- name: Cleanup all stuff from Temp created by this role
+#  file: path=/tmp/{{ item.dest }} state=absent
+#  with_items:
+#    - { dest: 'destination' }
+#    - { dest: 'staging' }
+#  tags:
+#    - nolio_ansible
+#    - all
