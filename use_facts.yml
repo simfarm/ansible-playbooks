@@ -9,3 +9,7 @@
         msg: '{{ansible_machine}}'
     - debug:
         msg: '{{ansible_system}}'
+    - debug:
+        msg: '{{ansible_date_time.time}}'
+      tags:
+        - time
