@@ -1,0 +1,22 @@
+---
+
+- name: remove package 
+  hosts: all
+  become: true
+  tasks:
+    - name: remove httpd package
+      yum:
+        name: httpd
+        state: absent
+    - name: remove list of packages
+      yum:
+        name: "{{ packages }}"
+        state: absent
+      vars:
+        packages:
+        - httpd
+        - httpd-tools
+    - name: remove smart card support package group
+      yum:
+        name: '@Smart Card Support'
+        state: absent 

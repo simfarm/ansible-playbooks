@@ -1,0 +1,22 @@
+---
+
+- name: install packages 
+  hosts: all
+  become: true
+  tasks:
+    - name: install httpd package
+      yum:
+        name: httpd-2.4.6-17.el7  # older version
+        state: present
+    - name: install list of packages
+      yum:
+        name: "{{ packages }}"
+        state: present
+      vars:
+        packages:
+        - httpd
+        - httpd-tools            
+    - name: install smart card support package group
+      yum:
+        name: '@Smart Card Support'
+        state: present
