@@ -11,7 +11,7 @@
     - name: update list of packages
       yum:
         name: "{{ packages }}"
-        state: present
+        state: latest
       vars:
         packages:
         - httpd
@@ -23,4 +23,4 @@
     - name: update all installed packages
       yum:
         name: '*'
-        state: present # does nothing 
+        state: latest
